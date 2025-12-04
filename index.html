@@ -91,6 +91,7 @@
 
         .tabs-header {
             display: flex;
+            flex-wrap: wrap; 
             background: var(--dark);
             overflow-x: auto;
             scrollbar-width: none;
@@ -113,7 +114,11 @@
             transition: var(--transition);
             text-align: center;
             position: relative;
-            white-space: nowrap;
+            white-space: normal;  /* CAMBIA nowrap por normal */
+            word-wrap: break-word;  /* AGREGAR ESTA LÍNEA */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .tab-button:hover {
@@ -346,11 +351,15 @@
 
         @media (max-width: 768px) {
             .tabs-header {
-                flex-direction: column;
+                flex-direction: row; /* Mantiene en fila pero permite wrap */
+                flex-wrap: wrap;
             }
             
             .tab-button {
-                min-width: 100%;
+                min-width: 50%; /* Ocupa la mitad del ancho en móviles */
+                flex: 0 0 50%; /* Cada botón ocupa 50% */
+                padding: 15px 10px;
+                font-size: 1rem;
             }
             
             .content-grid {
@@ -387,6 +396,9 @@
                 </button>
                 <button class="tab-button" data-tab="electrica">
                     <i class="tab-icon fas fa-bolt"></i> Prospección Eléctrica
+                </button>
+                <button class="tab-button" data-tab="electromagnetica">
+                    <i class="tab-icon fas fa-wave-square"></i> Prospección Electromagnética
                 </button>
                 <button class="tab-button" data-tab="comparativa">
                     <i class="tab-icon fas fa-chart-bar"></i> Comparativa General
@@ -844,6 +856,168 @@
                     </table>
                 </div>
             </div>
+            <!-- Pestaña de Prospección Electromagnética -->
+            <div class="tab-content" id="electromagnetica">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    Prospección Electromagnética
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-bolt"></i> Fundamentos y Principios
+                        </h3>
+                        <div class="card-content">
+                            <p>Método geofísico activo que utiliza campos electromagnéticos variables en el tiempo para estudiar la conductividad del subsuelo.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Ley de Inducción de Faraday:</strong> Base fundamental del método</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Campo primario:</strong> Generado por una fuente artificial (bobina, lazo)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Campo secundario:</strong> Inducido en cuerpos conductores del subsuelo</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Parámetros medidos:</strong> Amplitud, fase, decaimiento temporal</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-cogs"></i> Configuraciones y Métodos
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Clasificación por dominio:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Dominio de Frecuencia (FDEM):</strong> Medición en estado estacionario</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Dominio de Tiempo (TDEM):</strong> Estudio del decaimiento de la señal</li>
+                            </ul>
+                            <p><strong>Clasificación por fuente:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Métodos activos:</strong> Fuente controlada (en tierra o aérea)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Métodos pasivos:</strong> Utilizan fuentes naturales (AMT, MT)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Aéreos:</strong> Helicóptero o avión (HEM, AEM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-tools"></i> Equipos y Aplicaciones
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Equipos comunes:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>EM31, EM34:</strong> Para estudios superficiales</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Protones Magnetometers:</strong> Con capacidad EM</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sistemas TDEM:</strong> Como TEM, NanoTEM</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sistemas aéreos:</strong> Fugro, SkyTEM, VTEM</li>
+                            </ul>
+                            <p><strong>Aplicaciones principales:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> Exploración de minerales conductores (sulfuros masivos)</li>
+                                <li><i class="list-icon fas fa-circle"></i> Caracterización de acuíferos y contaminantes</li>
+                                <li><i class="list-icon fas fa-circle"></i> Detección de cavidades y tuberías metálicas</li>
+                                <li><i class="list-icon fas fa-circle"></i> Estudios arqueológicos y forenses</li>
+                                <li><i class="list-icon fas fa-circle"></i> Mapeo de agua salina/intrusión marina</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-balance-scale"></i> Comparación de Métodos EM
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Principio</th>
+                                <th>Profundidad</th>
+                                <th>Ventajas</th>
+                                <th>Limitaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>FDEM (Frecuencia)</strong></td>
+                                <td>Medición en estado estacionario a frecuencias específicas</td>
+                                <td>5-100 m</td>
+                                <td>Rápido, fácil de operar, buena resolución superficial</td>
+                                <td>Limitada profundidad, sensible a ruido electromagnético</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TDEM (Tiempo)</strong></td>
+                                <td>Estudio del decaimiento tras apagar fuente primaria</td>
+                                <td>10-500 m</td>
+                                <td>Mayor profundidad, menos afectado por ruido cultural</td>
+                                <td>Equipo más costoso, procesamiento complejo</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MT/AMT</strong></td>
+                                <td>Utiliza fuentes naturales (tormentas, sol)</td>
+                                <td>100 m - varios km</td>
+                                <td>Gran profundidad, sin fuente artificial</td>
+                                <td>Baja resolución superficial, requiere tiempos largos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EM Aéreo</strong></td>
+                                <td>Sistemas montados en helicóptero/avión</td>
+                                <td>30-150 m</td>
+                                <td>Cobertura rápida de áreas extensas</td>
+                                <td>Costo alto, resolución limitada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="method-comparison" style="margin-top: 30px;">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-chart-line"></i> Ventajas vs. Métodos de Resistividad
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Métodos EM</th>
+                                <th>Métodos de Resistividad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Contacto con el suelo</strong></td>
+                                <td><span class="badge badge-success">No requiere</span></td>
+                                <td><span class="badge badge-danger">Requiere electrodos</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Velocidad de adquisición</strong></td>
+                                <td><span class="badge badge-success">Muy rápida</span></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Profundidad de investigación</strong></td>
+                                <td>Moderada a grande</td>
+                                <td>Superficial a moderada</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Resolución vertical</strong></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                                <td><span class="badge badge-success">Alta</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sensibilidad a ruido</strong></td>
+                                <td><span class="badge badge-danger">Alta</span></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Costo operativo</strong></td>
+                                <td><span class="badge badge-warning">Medio-Alto</span></td>
+                                <td><span class="badge badge-success">Bajo-Medio</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             
             <!-- Pestaña de Comparativa General -->
             <div class="tab-content" id="comparativa">
@@ -977,6 +1151,14 @@
                                 <td>Superficial - Media</td>
                                 <td><span class="badge badge-warning">Medio-Alto</span></td>
                                 <td>Estructuras complejas, cavidades</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prospección Electromagnética</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Conductividad/Resistividad</td>
+                                <td>30-500 m</td>
+                                <td><span class="badge badge-warning">Medio-Alto</span></td>
+                                <td>Minerales conductores, contaminación, acuíferos</td>
                             </tr>
                         </tbody>
                     </table>
