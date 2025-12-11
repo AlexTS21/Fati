@@ -10,17 +10,75 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="countdown-page">
+    <div class="countdown-page" id="countdownPage">
         <div class="countdown-wrapper">
-            <div class="countdown" id="countdown">Loading...</div>
+            <div class="countdown" id="countdown">0d 0h 00m 00s</div>
             <a>para que pase algo mágico</a>
         </div>
         
         <img src="assets\hello.gif" alt="Birthday animation" class="bottom-gif" />
     </div>
 
-    <div>
-    <!--CHarts to see the day-->
+     <div class="rewind-section" id="rewindSection" style="display: none;">
+        <div class="scroll-indicator" id="scrollIndicator">scroll down ↓</div>
+        
+        <div class="rewind-title">
+            <a>feliz cumpleaños bonita ❤</a>
+            <button id="toggleBtn" class="icon-btn play"></button>
+            <audio id="audio" src="audio/intro.mp3"></audio>
+            <img src="assets\hablando.png" alt="cat" id="cat-image"/>
+        </div>
+        
+        <div class="view">
+            
+            <div class="block">
+                <a>A tus 20 viajaste bastante, recorriste al menos 1232km en viajes</a>
+            </div>
+            <div class="block viajes">
+                <div class="text-viaje">
+                    <h2>Malinche</h2>
+                    <a>126km lograste subir a unos 4000m sobre el nivel del mar sin algun entrenamiento previo</a>
+                </div>
+               <img src="assets\malinche.png" alt="malinche" id="malinche-img"/>
+            </div>
+            <div class="block viajes">
+               <img src="assets\enajmbre.png" alt="malinche" id="malinche-img"/>
+               <div class="text-viaje">
+                    <h2>Enjambre</h2>
+                    <a>282km recorriste para ver a una de tus bandas favoritas</a>
+                </div>
+            </div>
+            <div class="block viajes">
+                <div class="text-viaje">
+                    <h2>Pico de Orizaba</h2>
+                    <a>498km para conocer la montaña mas grande de mexico</a>
+                </div>
+               <img src="assets\pico.png" alt="malinche" id="malinche-img"/>
+            </div>
+            <div class="block viajes">
+                <img src="assets\chalma.png" alt="malinche" id="malinche-img"/>
+                <div class="text-viaje">
+                    <h2>Chalma</h2>
+                    <a>426km al municipio de Chalma</a>
+                </div>
+            </div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            
+        </div>
     </div>
   <script src="scripts/script.js"></script>
 </body>
