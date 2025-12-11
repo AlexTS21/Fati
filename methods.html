@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geofisica Ambiental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #5c6bc0;
+            --light: #e8eaf6;
+            --dark: #0d1533;
+            --success: #2e7d32;
+            --warning: #f57c00;
+            --danger: #c62828;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tabs-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            flex-wrap: wrap; 
+            background: var(--dark);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 180px;
+            padding: 18px 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            white-space: normal;  /* CAMBIA nowrap por normal */
+            word-wrap: break-word;  /* AGREGAR ESTA LÍNEA */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #ffeb3b;
+        }
+
+        .tab-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            margin-right: 15px;
+            background-color: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--accent);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .card-content {
+            color: #555;
+        }
+
+        .card-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+
+        .card-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            color: var(--accent);
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .method-comparison {
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+
+        .badge-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .badge-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .method-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #e8eaf6;
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.95rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .tabs-header {
+                flex-direction: row; /* Mantiene en fila pero permite wrap */
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                min-width: 50%; /* Ocupa la mitad del ancho en móviles */
+                flex: 0 0 50%; /* Cada botón ocupa 50% */
+                padding: 15px 10px;
+                font-size: 1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tab-content {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Geofisica Ambiental</h1>
+            <p class="subtitle">ola tqm: Radiométricos, Sísmicos, Potenciales y Eléctricos</p>
+        </header>
+        
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <button class="tab-button active" data-tab="radiometrica">
+                    <i class="tab-icon fas fa-radiation"></i> Prospección Radiométrica
+                </button>
+                <button class="tab-button" data-tab="sismica">
+                    <i class="tab-icon fas fa-mountain"></i> Método Sísmico
+                </button>
+                <button class="tab-button" data-tab="potenciales">
+                    <i class="tab-icon fas fa-magnet"></i> Métodos Potenciales
+                </button>
+                <button class="tab-button" data-tab="electrica">
+                    <i class="tab-icon fas fa-bolt"></i> Prospección Eléctrica
+                </button>
+                <button class="tab-button" data-tab="electromagnetica">
+                    <i class="tab-icon fas fa-wave-square"></i> Prospección Electromagnética
+                </button>
+                <button class="tab-button" data-tab="comparativa">
+                    <i class="tab-icon fas fa-chart-bar"></i> Comparativa General
+                </button>
+            </div>
+            
+            <!-- Pestaña de Prospección Radiométrica -->
+            <div class="tab-content active" id="radiometrica">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-radiation"></i>
+                    </div>
+                    Prospección Radiométrica
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-atom"></i> Conceptos Básicos
+                        </h3>
+                        <div class="card-content">
+                            <p>Técnica geofísica que detecta radiación natural emitida por minerales en el subsuelo. Se basa en la desintegración nuclear de isótopos radiactivos naturales.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Átomo:</strong> Unidad básica compuesta por protones, neutrones y electrones</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Fusión nuclear:</strong> Unión de núcleos ligeros liberando energía</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Fisión nuclear:</strong> División de núcleos pesados liberando energía</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Desintegración:</strong> Proceso espontáneo de núcleos inestables (alfa, beta, gamma)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-gem"></i> Minerales Radiactivos
+                        </h3>
+                        <div class="card-content">
+                            <p>Principales elementos radiactivos naturales presentes en minerales:</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Uranio (U):</strong> Uraninita, Carnotita, Autunita</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Torio (Th):</strong> Monacita, Torianita</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Potasio-40 (K-40):</strong> Feldespatos, Micas, Silvita</li>
+                            </ul>
+                            <p>El potasio-40 constituye aproximadamente el 0.012% del potasio natural.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-tools"></i> Técnicas y Aplicaciones
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Técnicas principales:</strong></p>
+                            <div>
+                                <span class="method-tag">Espectrometría Gamma</span>
+                                <span class="method-tag">Fluorescencia de Rayos X</span>
+                                <span class="method-tag">Difracción de Rayos X</span>
+                                <span class="method-tag">Espectrometría Raman</span>
+                                <span class="method-tag">Absorción Atómica</span>
+                                <span class="method-tag">Espectrometría de Masas</span>
+                            </div>
+                            <p><strong>Aplicaciones:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> Exploración de uranio y torio</li>
+                                <li><i class="list-icon fas fa-circle"></i> Cartografía geológica y minera</li>
+                                <li><i class="list-icon fas fa-circle"></i> Estudios ambientales (contaminación radiactiva)</li>
+                                <li><i class="list-icon fas fa-circle"></i> Exploración de hidrocarburos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-balance-scale"></i> Comparación de Técnicas Radiométricas
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Técnica</th>
+                                <th>Principio</th>
+                                <th>Aplicaciones Principales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Fluorescencia de Rayos X</strong></td>
+                                <td>Emisión de rayos X característicos al excitar átomos</td>
+                                <td>Identificación mineral, análisis de metales pesados</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Difracción de Rayos X</strong></td>
+                                <td>Difracción por planos atómicos cristalinos</td>
+                                <td>Identificación de fases cristalinas, estudio de tensiones</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Espectrometría Raman</strong></td>
+                                <td>Dispersión inelástica de fotones por vibraciones moleculares</td>
+                                <td>Identificación molecular, estudio de nanomateriales</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Absorción Atómica</strong></td>
+                                <td>Absorción de luz por átomos en fase gaseosa</td>
+                                <td>Determinación de metales pesados en agua y suelos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Espectrometría de Masas</strong></td>
+                                <td>Separación de iones por relación masa/carga</td>
+                                <td>Identificación de compuestos orgánicos, análisis isotópico</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pestaña del Método Sísmico -->
+            <div class="tab-content" id="sismica">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    Método Sísmico
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-wave-square"></i> Fundamentos Básicos
+                        </h3>
+                        <div class="card-content">
+                            <p>Método de prospección que utiliza ondas elásticas generadas artificialmente para estudiar el subsuelo.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Ley de Snell:</strong> Describe el cambio de dirección de las ondas al pasar entre medios</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Tipos de ondas:</strong> Primaria (P), Secundaria (S), Love, Rayleigh</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Equipo básico:</strong> Fuente sísmica, geófonos, cables, sismógrafo digital</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Configuraciones:</strong> Reflexión, Refracción, Ondas Superficiales</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-water"></i> Sísmica de Reflexión
+                        </h3>
+                        <div class="card-content">
+                            <p>Registra las ondas que se reflejan en las interfaces entre capas del subsuelo.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>CMP (Punto Medio Común):</strong> Técnica de apilamiento para mejorar señal/ruido</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sísmica Marina:</strong> Adaptación con air guns e hidrófonos en streamers</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Procesado:</strong> Correcciones, filtrado, apilamiento, migración</li>
+                            </ul>
+                            <p><strong>Aplicaciones:</strong> Exploración de hidrocarburos, estudios geológicos profundos, geotecnia avanzada.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-layer-group"></i> Sísmica de Refracción y Ondas Superficiales
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Refracción:</strong> Basada en ondas refractadas críticas que viajan por capas de mayor velocidad.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Tomografía Sísmica:</strong> Versión mejorada para modelos continuos</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Limitaciones:</strong> Se invalida con inversiones de velocidad</li>
+                            </ul>
+                            <p><strong>Ondas Superficiales:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>MASW:</strong> Análisis multicanal para perfil de velocidad Vs</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>ReMi:</strong> Método pasivo que utiliza ruido ambiental</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-chart-line"></i> Comparación de Métodos Sísmicos
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Principio</th>
+                                <th>Profundidad (m)</th>
+                                <th>Resolución</th>
+                                <th>Aplicaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Reflexión CMP</strong></td>
+                                <td>Reflexión en interfaces, apilado CMP</td>
+                                <td>100 - 5,000</td>
+                                <td><span class="badge badge-success">Alta</span></td>
+                                <td>Hidrocarburos, geología profunda</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reflexión Marina</strong></td>
+                                <td>Reflexión con columna de agua</td>
+                                <td>100 - 10,000</td>
+                                <td><span class="badge badge-success">Alta</span></td>
+                                <td>Exploración offshore</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Refracción Convencional</strong></td>
+                                <td>Ondas refractadas críticas</td>
+                                <td>5 - 1,000</td>
+                                <td><span class="badge badge-warning">Media-Baja</span></td>
+                                <td>Geotecnia, basamento</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tomografía Sísmica</strong></td>
+                                <td>Inversión de tiempos de vuelo</td>
+                                <td>10 - 2,000</td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                                <td>Ingeniería civil, cavidades</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MASW</strong></td>
+                                <td>Ondas superficiales Rayleigh</td>
+                                <td>0 - 50</td>
+                                <td><span class="badge badge-warning">Baja (vertical)</span></td>
+                                <td>Caracterización de suelos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ReMi</strong></td>
+                                <td>Ondas superficiales pasivas</td>
+                                <td>0 - 100</td>
+                                <td><span class="badge badge-warning">Baja (vertical)</span></td>
+                                <td>Zonificación urbana</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pestaña de Métodos Potenciales -->
+            <div class="tab-content" id="potenciales">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-magnet"></i>
+                    </div>
+                    Métodos Potenciales
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-weight-hanging"></i> Gravimetría
+                        </h3>
+                        <div class="card-content">
+                            <p>Mide variaciones minúsculas en la aceleración de la gravedad causadas por diferencias de densidad en el subsuelo.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Instrumentos:</strong> Gravímetros de resorte, superconductividad, portátiles</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sensibilidad:</strong> Hasta 10⁻⁶ m/s² (microgales)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Alcance:</strong> Decenas de km (profundo) a metros (superficial)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Anomalía:</strong> Δg = g_observado - g_teórico</li>
+                            </ul>
+                            <p><strong>Aplicaciones:</strong> Cuencas sedimentarias, intrusivos, tectónica, cavidades, contaminación.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-compass"></i> Magnetometría
+                        </h3>
+                        <div class="card-content">
+                            <p>Mide variaciones en el campo magnético terrestre causadas por contrastes en susceptibilidad magnética.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Instrumentos:</strong> Magnetómetros de protones, cesio, fluxgate</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sensibilidad:</strong> Nanoteslas (10⁻⁹ T)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Alcance:</strong> Varios km (intrusivos) a metros (objetos metálicos)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Anomalía:</strong> ΔB = B_observado - B_teórico</li>
+                            </ul>
+                            <p><strong>Aplicaciones:</strong> Prospección minera, arqueología, contaminación ferromagnética.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-sliders-h"></i> Procesamiento de Datos
+                        </h3>
+                        <div class="card-content">
+                            <p>Proceso esencial para aislar anomalías geológicas de efectos no deseados.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Correcciones gravimétricas:</strong> Deriva, mareas, latitud, aire libre, Bouguer, topografía</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Correcciones magnéticas:</strong> Variación diurna, campo principal (IGRF), nivelación</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Gridding y mapas:</strong> Interpolación a malla regular</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Separación regional-residual:</strong> Para distinguir efectos profundos vs. someros</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Modelado:</strong> Ajuste de modelos 2D/3D de densidad o susceptibilidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-map"></i> Resultados y Productos
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Mapa/Producto</th>
+                                <th>¿Qué es?</th>
+                                <th>¿Para qué sirve?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Anomalía de Bouguer</strong></td>
+                                <td>Variaciones residuales tras correcciones gravimétricas</td>
+                                <td>Identificar zonas con mayor/menor densidad (cuencas, intrusivos)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anomalía Isostática</strong></td>
+                                <td>Mapa tras sustraer modelo de equilibrio cortical</td>
+                                <td>Mostrar desequilibrios corticales (geodinámica regional)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anomalía Magnética Residual</strong></td>
+                                <td>Mapa tras restar campo principal y variación diurna</td>
+                                <td>Destacar cuerpos con distinta susceptibilidad magnética</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mapa Reducido al Polo (RTP)</strong></td>
+                                <td>Transformación que ubica anomalías sobre sus fuentes</td>
+                                <td>Simplificar interpretación de mapas magnéticos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pestaña de Prospección Eléctrica -->
+            <div class="tab-content" id="electrica">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    Prospección Eléctrica
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-resistance"></i> Conceptos Básicos
+                        </h3>
+                        <div class="card-content">
+                            <p>Técnica activa que estudia la distribución de resistividad eléctrica en el subsuelo mediante inyección de corriente controlada.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Resistividad Aparente:</strong> Resistividad medida con arreglo específico de electrodos</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Método de 4 electrodos:</strong> Circuitos independientes de corriente (A,B) y potencial (M,N)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sondeo Eléctrico Vertical (SEV):</strong> Mediciones con separación creciente de electrodos</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Arreglos principales:</strong> Schlumberger y Wenner</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-chart-line"></i> Curvas de SEV
+                        </h3>
+                        <div class="card-content">
+                            <p>Gráficas bilogarítmicas de resistividad aparente vs. distancia entre electrodos.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Una capa:</strong> Medio homogéneo e isótropo de espesor infinito</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Dos capas:</strong> Dos materiales con diferentes resistividades</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Tres capas:</strong> Tipos H, K, Q, A según secuencia de resistividades</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Más capas:</strong> Combinaciones como HK, KH, HA, etc.</li>
+                            </ul>
+                            <p><strong>Interpretación:</strong> Determinar resistividades verdaderas y espesores de estratos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-layer-group"></i> Tomografía de Resistividad
+                        </h3>
+                        <div class="card-content">
+                            <p>Variante 2D/3D con múltiples electrodos a distancia constante a lo largo de un perfil.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Resolución vs. Profundidad:</strong> Inversamente proporcionales</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Proceso de inversión:</strong> Obtención de modelo matemático que ajuste datos observados</li>
+                            </ul>
+                            <p><strong>Aplicaciones:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> Detección y caracterización de fallas</li>
+                                <li><i class="list-icon fas fa-circle"></i> Contactos entre unidades litológicas</li>
+                                <li><i class="list-icon fas fa-circle"></i> Cavidades y huecos kársticos</li>
+                                <li><i class="list-icon fas fa-circle"></i> Unidades acuíferas y contaminación</li>
+                                <li><i class="list-icon fas fa-circle"></i> Restos arqueológicos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-project-diagram"></i> Configuraciones de SEV
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Arreglo</th>
+                                <th>Descripción</th>
+                                <th>Ventajas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Schlumberger</strong></td>
+                                <td>Separación progresiva de electrodos A y B, con M y N fijos</td>
+                                <td>Mayor profundidad de investigación, menor tiempo</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Wenner</strong></td>
+                                <td>Aumento progresivo de distancia "a" manteniendo simetría</td>
+                                <td>Mayor resolución vertical, interpretación más simple</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3 class="section-title" style="margin-top: 40px;">
+                        <i class="section-icon fas fa-sitemap"></i> Tipos de Curvas de Tres Capas
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Secuencia de Resistividad</th>
+                                <th>Ejemplo (Ohm.m)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo H</strong></td>
+                                <td>Resistiva - Conductiva - Resistiva</td>
+                                <td>200 - 20 - 200</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo K</strong></td>
+                                <td>Conductiva - Resistiva - Conductiva</td>
+                                <td>20 - 200 - 20</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo A</strong></td>
+                                <td>Conductiva - Medianamente Resistiva - Resistiva</td>
+                                <td>20 - 100 - 300</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipo Q</strong></td>
+                                <td>Resistiva - Medianamente Resistiva - Conductiva</td>
+                                <td>300 - 100 - 20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Pestaña de Prospección Electromagnética -->
+            <div class="tab-content" id="electromagnetica">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    Prospección Electromagnética
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-bolt"></i> Fundamentos y Principios
+                        </h3>
+                        <div class="card-content">
+                            <p>Método geofísico activo que utiliza campos electromagnéticos variables en el tiempo para estudiar la conductividad del subsuelo.</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Ley de Inducción de Faraday:</strong> Base fundamental del método</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Campo primario:</strong> Generado por una fuente artificial (bobina, lazo)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Campo secundario:</strong> Inducido en cuerpos conductores del subsuelo</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Parámetros medidos:</strong> Amplitud, fase, decaimiento temporal</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-cogs"></i> Configuraciones y Métodos
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Clasificación por dominio:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Dominio de Frecuencia (FDEM):</strong> Medición en estado estacionario</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Dominio de Tiempo (TDEM):</strong> Estudio del decaimiento de la señal</li>
+                            </ul>
+                            <p><strong>Clasificación por fuente:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Métodos activos:</strong> Fuente controlada (en tierra o aérea)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Métodos pasivos:</strong> Utilizan fuentes naturales (AMT, MT)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Aéreos:</strong> Helicóptero o avión (HEM, AEM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-tools"></i> Equipos y Aplicaciones
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Equipos comunes:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>EM31, EM34:</strong> Para estudios superficiales</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Protones Magnetometers:</strong> Con capacidad EM</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sistemas TDEM:</strong> Como TEM, NanoTEM</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Sistemas aéreos:</strong> Fugro, SkyTEM, VTEM</li>
+                            </ul>
+                            <p><strong>Aplicaciones principales:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> Exploración de minerales conductores (sulfuros masivos)</li>
+                                <li><i class="list-icon fas fa-circle"></i> Caracterización de acuíferos y contaminantes</li>
+                                <li><i class="list-icon fas fa-circle"></i> Detección de cavidades y tuberías metálicas</li>
+                                <li><i class="list-icon fas fa-circle"></i> Estudios arqueológicos y forenses</li>
+                                <li><i class="list-icon fas fa-circle"></i> Mapeo de agua salina/intrusión marina</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-balance-scale"></i> Comparación de Métodos EM
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Principio</th>
+                                <th>Profundidad</th>
+                                <th>Ventajas</th>
+                                <th>Limitaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>FDEM (Frecuencia)</strong></td>
+                                <td>Medición en estado estacionario a frecuencias específicas</td>
+                                <td>5-100 m</td>
+                                <td>Rápido, fácil de operar, buena resolución superficial</td>
+                                <td>Limitada profundidad, sensible a ruido electromagnético</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TDEM (Tiempo)</strong></td>
+                                <td>Estudio del decaimiento tras apagar fuente primaria</td>
+                                <td>10-500 m</td>
+                                <td>Mayor profundidad, menos afectado por ruido cultural</td>
+                                <td>Equipo más costoso, procesamiento complejo</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MT/AMT</strong></td>
+                                <td>Utiliza fuentes naturales (tormentas, sol)</td>
+                                <td>100 m - varios km</td>
+                                <td>Gran profundidad, sin fuente artificial</td>
+                                <td>Baja resolución superficial, requiere tiempos largos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>EM Aéreo</strong></td>
+                                <td>Sistemas montados en helicóptero/avión</td>
+                                <td>30-150 m</td>
+                                <td>Cobertura rápida de áreas extensas</td>
+                                <td>Costo alto, resolución limitada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="method-comparison" style="margin-top: 30px;">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-chart-line"></i> Ventajas vs. Métodos de Resistividad
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Métodos EM</th>
+                                <th>Métodos de Resistividad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Contacto con el suelo</strong></td>
+                                <td><span class="badge badge-success">No requiere</span></td>
+                                <td><span class="badge badge-danger">Requiere electrodos</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Velocidad de adquisición</strong></td>
+                                <td><span class="badge badge-success">Muy rápida</span></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Profundidad de investigación</strong></td>
+                                <td>Moderada a grande</td>
+                                <td>Superficial a moderada</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Resolución vertical</strong></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                                <td><span class="badge badge-success">Alta</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sensibilidad a ruido</strong></td>
+                                <td><span class="badge badge-danger">Alta</span></td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Costo operativo</strong></td>
+                                <td><span class="badge badge-warning">Medio-Alto</span></td>
+                                <td><span class="badge badge-success">Bajo-Medio</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pestaña de Comparativa General -->
+            <div class="tab-content" id="comparativa">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    Comparativa General de Métodos Geofísicos
+                </div>
+                
+                <div class="content-grid">
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-cogs"></i> Características Generales
+                        </h3>
+                        <div class="card-content">
+                            <p><strong>Métodos Activos vs. Pasivos:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-broadcast-tower"></i> <strong>Activos:</strong> Generan energía (Sísmicos, Eléctricos)</li>
+                                <li><i class="list-icon fas fa-satellite"></i> <strong>Pasivos:</strong> Utilizan campos naturales (Potenciales, ReMi)</li>
+                            </ul>
+                            <p><strong>Resolución vs. Profundidad:</strong></p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-search"></i> <strong>Alta resolución:</strong> Métodos sísmicos, tomografía eléctrica</li>
+                                <li><i class="list-icon fas fa-mountain"></i> <strong>Gran profundidad:</strong> Métodos potenciales, sísmica de reflexión</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-dollar-sign"></i> Factores Económicos y Logísticos
+                        </h3>
+                        <div class="card-content">
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Más económicos:</strong> Métodos potenciales, SEV, refracción</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Más costosos:</strong> Sísmica de reflexión marina, tomografía sísmica</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Logística simple:</strong> Métodos potenciales, SEV</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Logística compleja:</strong> Sísmica marina, reflexión terrestre</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Rápida cobertura:</strong> Métodos aéreos, magnetometría</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 class="card-title">
+                            <i class="card-icon fas fa-crosshairs"></i> Selección del Método Adecuado
+                        </h3>
+                        <div class="card-content">
+                            <p>La elección depende de:</p>
+                            <ul class="card-list">
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Objetivo del estudio</strong> (exploración, ambiental, ingenieril)</li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Profundidad de interés</strong></li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Resolución requerida</strong></li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Condiciones del terreno</strong></li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Presupuesto y tiempo disponibles</strong></li>
+                                <li><i class="list-icon fas fa-circle"></i> <strong>Integración con otros métodos</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="method-comparison">
+                    <h3 class="section-title">
+                        <i class="section-icon fas fa-table"></i> Comparativa Completa de Métodos
+                    </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Tipo</th>
+                                <th>Propiedad Medida</th>
+                                <th>Profundidad Típica</th>
+                                <th>Costo Relativo</th>
+                                <th>Aplicaciones Principales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Prospección Radiométrica</strong></td>
+                                <td><span class="badge badge-primary">Activo/Pasivo</span></td>
+                                <td>Radiación natural</td>
+                                <td>Superficial - Media</td>
+                                <td><span class="badge badge-warning">Medio</span></td>
+                                <td>Minerales radiactivos, ambiental</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sísmica de Reflexión</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Propiedades elásticas</td>
+                                <td>Media - Profunda</td>
+                                <td><span class="badge badge-danger">Alto</span></td>
+                                <td>Hidrocarburos, estructuras profundas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sísmica de Refracción</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Velocidades sísmicas</td>
+                                <td>Superficial - Media</td>
+                                <td><span class="badge badge-success">Bajo</span></td>
+                                <td>Geotecnia, basamento</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gravimetría</strong></td>
+                                <td><span class="badge badge-primary">Pasivo</span></td>
+                                <td>Densidad</td>
+                                <td>Media - Profunda</td>
+                                <td><span class="badge badge-success">Bajo</span></td>
+                                <td>Estructuras regionales, cuencas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Magnetometría</strong></td>
+                                <td><span class="badge badge-primary">Pasivo</span></td>
+                                <td>Susceptibilidad magnética</td>
+                                <td>Superficial - Media</td>
+                                <td><span class="badge badge-success">Bajo</span></td>
+                                <td>Minería, arqueología, contaminación</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SEV</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Resistividad eléctrica</td>
+                                <td>Superficial - Media</td>
+                                <td><span class="badge badge-warning">Medio</span></td>
+                                <td>Acuíferos, contaminación, estratigrafía</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tomografía Eléctrica</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Resistividad eléctrica 2D/3D</td>
+                                <td>Superficial - Media</td>
+                                <td><span class="badge badge-warning">Medio-Alto</span></td>
+                                <td>Estructuras complejas, cavidades</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prospección Electromagnética</strong></td>
+                                <td><span class="badge badge-danger">Activo</span></td>
+                                <td>Conductividad/Resistividad</td>
+                                <td>30-500 m</td>
+                                <td><span class="badge badge-warning">Medio-Alto</span></td>
+                                <td>Minerales conductores, contaminación, acuíferos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--danger);"></div>
+                        <span>Método Activo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--primary);"></div>
+                        <span>Método Pasivo/Activo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--success);"></div>
+                        <span>Costo Bajo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--warning);"></div>
+                        <span>Costo Medio</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--danger);"></div>
+                        <span>Costo Alto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>papoi?</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remover clase active de todos los botones y contenidos
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    // Mostrar el contenido correspondiente
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Activar la primera pestaña por defecto
+            document.querySelector('.tab-button.active').click();
+        });
+    </script>
+</body>
+</html>

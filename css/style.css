@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    font-family: "Geom", sans-serif;
+    background: #ebbf44;
+    color: #fff;
+    text-align: center;
+    height: 100vh;
+}
+
+.countdown-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.countdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    max-width: 850px;
+
+    margin: 0 auto;
+}
+
+.countdown {
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(122, 119, 119, 0.3);
+}
+
+.countdown-wrapper > a {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.bottom-gif {
+    max-width: 90%;
+    height: auto;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .countdown {
+        font-size: 7rem;
+    }
+    
+    .countdown-wrapper > a {
+        font-size: 3rem;
+    }
+    
+    .bottom-gif {
+        width: 250px;
+    }
+}
+
+
+
+/* Mobile styles */
+@media (max-width: 480px) {
+    .countdown {
+        font-size: 2.5rem;
+    }
+    .countdown-wrapper{
+        max-width: 100vw;
+        max-height: 70vh;
+    }
+    
+    .countdown-wrapper > a {
+        font-size: 1.3rem;
+        padding: 0 15px;
+    }
+    
+    .bottom-gif {
+        width: 180px;
+    }
+   
+    
+}
+
+
+/* Prevent text selection on countdown */
+.countdown {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
