@@ -50,3 +50,29 @@ audio.addEventListener("ended", () => {
     btn.classList.remove("pause");
     btn.classList.add("play");
 });
+
+
+const audio2 = document.getElementById("audio2");
+const btn2 = document.getElementById("toggleBtn2");
+const catImage2 = document.getElementById("cat-image2");
+
+btn2.addEventListener("click", () => {
+    if (audio2.paused) {
+        catImage2.src = "assets/hablando.gif";  
+        audio2.play();
+        btn2.classList.remove("play");
+        btn2.classList.add("pause");
+    } else {
+        catImage2.src = "assets/hablando.png"; 
+        audio2.pause();
+        btn2.classList.remove("pause");
+        btn2.classList.add("play");
+    }
+});
+
+// When audio finishes
+audio2.addEventListener("ended", () => {
+    catImage2.src = "assets/hablando.png";     
+    btn2.classList.remove("pause");
+    btn2.classList.add("play");
+});
